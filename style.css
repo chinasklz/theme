@@ -1,0 +1,1333 @@
+/*
+Theme Name:   GP Denuncias Theme
+Theme URI:    https://tusitio.com/
+Description:  Tema hijo para GeneratePress - Sitio de denuncias.
+Author:       Tu Nombre
+Author URI:   https://tusitio.com/
+Template:     generatepress
+Version:      1.0.1
+License:      GNU General Public License v2 or later
+License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:  gp-denuncias-theme
+*/
+
+/* Estilos Personalizados para GP Denuncias Theme - Inspirados en ListaSpam.com
+---------------------------------------------------------------------------- */
+
+/* Variables de Color (similares a ListaSpam) */
+:root {
+    --main-color: #00cfc9; /* Verde azulado principal */
+    --secondary-color: #004948; /* Verde oscuro para textos/enlaces */
+    --tertiary-color: #221f49; /* Azul oscuro/morado para títulos y elementos */
+    --alt-color: #e9f1fb; /* Azul claro para fondos de cajas */
+    --light-gray-bg: #f8f8f8; /* Gris muy claro para fondos alternos */
+    --medium-gray-border: #e0e0e0; /* Gris para bordes suaves */
+    --dark-gray-text: #444;
+    --text-color: #221f49; /* Color de texto por defecto */
+    --link-color: #004948;
+    --link-hover-color: #00cfc9;
+    --result-1:#CF0006; /* Peligroso */
+    --result-2:#ff7d02; /* Malo */
+    --result-3:#eebd0d; /* Neutral */
+    --result-4:#9fc617; /* Bueno */
+    --result-5:#40bd35; /* Seguro */
+}
+
+
+/* Ajustes Generales
+--------------------------------------------- */
+ol, ul {
+    margin: 0; /* Modificado según Customizer del usuario, era: margin: 0 0 1.5em 3em; o similar por defecto */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--text-color);
+    background-color: #fff; /* Fondo general blanco */
+}
+
+.site-content .container { /* Para plantillas que usan .container internamente */
+    max-width: 1325px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.site-content {
+    padding-top: 0; /* GP añade padding, lo quitamos para que las secciones controlen el suyo */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--tertiary-color);
+    font-weight: 700;
+}
+h1 { font-size: 27px; }
+h2 { font-size: 24px; }
+h3 { font-size: 20px; }
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--link-hover-color);
+    text-decoration: underline;
+}
+p { margin-bottom: 15px; }
+
+/* Botón General (similar a custom-btn de listaspam) */
+.custom-btn {
+    color: var(--tertiary-color);
+    background: var(--main-color);
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-size: 18px;
+    font-weight: 700;
+    transition: .2s linear;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+.custom-btn:hover {
+    color: #fff;
+    background: var(--tertiary-color);
+    text-decoration: none;
+}
+
+
+/* Header (Ajustes para que no interfiera con el hero de la home)
+--------------------------------------------- */
+body.home .site-header {
+    /* Para la home, el header de GP podría ocultarse o hacerse transparente
+       si el .head.main_gradient ocupa toda la parte superior */
+    /* Ejemplo: position: absolute; width: 100%; z-index: 10; background: transparent; */
+}
+/* Logo del header de GP (si se mantiene) */
+.site-header .site-logo img,
+.site-header .custom-logo-link img {
+    height: 40px; /* Ajustar según necesidad */
+    width: auto;
+}
+.site-header .main-title a {
+    color: var(--tertiary-color); /* O #fff si el header es oscuro */
+}
+
+
+/* Estructura General de Página (similar a listaspam con sidebar)
+-------------------------------------------------------------- */
+.show_right_side > .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Para móviles */
+}
+.main_content {
+    width: 100%; /* Ocupa todo en móvil */
+}
+.right_side {
+    width: 100%; /* Ocupa todo en móvil */
+    margin-top: 20px;
+}
+
+@media(min-width:1024px){
+    .main_content{
+        width: calc(100% - 325px); /* Espacio para la sidebar */
+    }
+    .right_side{
+        width: 300px;
+        display: block;
+        padding-top: 15px; /* Ajustar según el inicio del contenido principal */
+        margin-top: 0;
+    }
+    /* Para anuncios sticky si se implementan en .right_side */
+    .right_side .adsbygoogle {
+        width:300px;
+        height:600px;
+        position:sticky;
+        top:15px;
+    }
+}
+
+/* Ajustes de GeneratePress "Separate Containers" (del Customizer del usuario) */
+.separate-containers .comments-area,
+.separate-containers .inside-article,
+.separate-containers .page-header,
+.separate-containers .paging-navigation {
+    padding: 12px;
+}
+
+.separate-containers.no-sidebar .site-main {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+
+/* === ESTILOS PARA FRONT-PAGE.PHP === */
+
+/* Sección Hero (.head.main_gradient) */
+.home .head.main_gradient {
+    background: var(--main-color);
+    background: linear-gradient(45deg, var(--main-color) 0%, #5ce6b7 100%); /* Gradiente de listaspam */
+    padding: 20px 0; /* Ajusta el padding vertical */
+    color: #fff;
+}
+.home .head .bg_main { /* Si usas la imagen de fondo de mapa y pattern */
+    /* background:url(https://static.callblocker.org/img/pattern-17X17.png),url(https://static.callblocker.org/img/worldmap-listaspam.png); */
+    /* background-position:50%,50%; */
+    /* background-repeat:repeat,no-repeat; */
+    /* background-size:auto,cover; */
+}
+.home .head .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 350px; /* Altura mínima para el hero */
+    text-align: center;
+}
+.home .head .shield_img {
+    width: 150px; /* Ajusta tamaño del escudo */
+    height: auto;
+    margin-bottom: 20px;
+}
+.home .head h1 {
+    color: #fff;
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+/* Formulario de búsqueda en Hero */
+.home .search_container {
+    max-width: 450px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 0 auto;
+}
+.home .search_container input[type="tel"] {
+    font-family: inherit;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    border-radius: 10px;
+    font-size: 18px;
+    background: #fff;
+    height: 50px;
+    padding: 10px 50px 10px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    color: var(--tertiary-color);
+}
+.home .search_container #search_submit {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 20px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+.home .search_container #search_submit img {
+    width: 100%;
+    height: auto;
+}
+
+/* Estilos para el autocompletado de búsqueda */
+#suggestions-container {
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    margin: -10px auto 0;
+    z-index: 100;
+}
+#suggestions-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,.1);
+    max-height: 200px;
+    overflow-y: auto;
+}
+#suggestions-container li {
+    padding: 10px 20px;
+    cursor: pointer;
+    color: var(--tertiary-color);
+}
+#suggestions-container li:hover {
+    background-color: var(--alt-color);
+}
+
+/* Sección Texto Introductorio (.text_ini) */
+.home .text_ini {
+    padding: 40px 0 20px;
+}
+.home .text_ini .container h2 { /* Usa la clase .home-texto-titulo si la mantienes */
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+.home .text_ini .container .home-texto-contenido p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+.home .text_ini .container .home-texto-contenido strong {
+    font-weight: 700;
+    color: var(--tertiary-color);
+}
+
+/* Sección Blog/Noticias (.blog) */
+.home .blog {
+    text-align: center;
+    padding: 20px 0;
+}
+.home .blog h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+.home .article-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%; /* Espacio entre artículos */
+    text-align: left;
+    margin-bottom: 20px;
+}
+.home .article-list .news_content {
+    background: var(--alt-color);
+    width: 100%; /* Móvil primero */
+    margin-bottom: 2%;
+    padding: 20px;
+    border-radius: 10px; /* Más suave que 30px */
+    position: relative;
+    box-sizing: border-box;
+    display: flex; /* Para alinear footer al fondo */
+    flex-direction: column;
+    justify-content: space-between;
+}
+.home .news_header {
+    display: flex;
+    align-items: center; /* Centra verticalmente img y texto */
+    margin-bottom: 15px;
+}
+.home .news_header .img_container {
+    width: 100px; /* Ajusta tamaño de imagen */
+    height: 100px;
+    background: var(--secondary-color);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0; /* Evita que la imagen se encoja */
+}
+.home .news_header .img_container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.home .news_header .header_txt {
+    margin-left: 15px;
+}
+.home .news_header .header_txt h3 {
+    font-size: 18px; /* Un poco más pequeño */
+    color: var(--tertiary-color);
+    margin: 0;
+}
+.home .news_header .header_txt h3 a {
+    color: inherit;
+}
+.home .news_desc {
+    padding: 0; /* Ya hay padding en news_content */
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px; /* Espacio antes del footer */
+    flex-grow: 1; /* Para empujar el footer hacia abajo */
+}
+.home .news_footer a {
+    font-weight: 700;
+    color: var(--secondary-color);
+    font-size: 16px;
+}
+.home .blog > .container > .custom-btn { /* Botón "Ver más noticias" */
+    margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+    .home .article-list .news_content {
+        width: 49%; /* Dos columnas en tablet */
+    }
+}
+@media (min-width: 1024px) {
+    .home .article-list .news_content {
+        width: 32%; /* Tres columnas en desktop */
+    }
+}
+
+
+/* Sección Números (.numbers) - Últimos Denunciados y Top Spam */
+.home .numbers {
+    padding: 20px 0;
+}
+.home .numbers .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+}
+.home .numbers .column {
+    width: 100%; /* Móvil primero */
+    margin-bottom: 20px;
+}
+.home .numbers .column h3 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+.home .numbers .number-list {
+    list-style: none;
+    padding: 0;
+}
+.home .numbers .comment-box { /* Estilo para cada item de número */
+    margin-bottom: 10px;
+    background-color: var(--light-gray-bg); /* Fondo claro */
+    border-radius: 5px;
+}
+.home .numbers .last-numbers .comment-box {
+    background-color: var(--light-gray-bg); /* listaspam usa #f8f8f8 */
+}
+.home .numbers .top-spam-numbers .comment-box {
+    background-color: var(--alt-color); /* listaspam usa --alt-color */
+}
+
+.home .numbers article.comment { /* Contenido dentro de .comment-box */
+    padding: 15px;
+    font-size: 14px;
+}
+.home .numbers article.comment header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+.home .numbers article.comment header .time,
+.home .numbers article.comment header .type_of_call {
+    display: flex;
+    align-items: center;
+}
+.home .numbers article.comment header .time {
+    color: var(--secondary-color);
+}
+.home .numbers article.comment header .time .time-icon {
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.home .numbers article.comment header .time .blob {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #ccc; /* Color por defecto */
+}
+.home .numbers article.comment header .time .blob.green {
+    background-color: #40bd35; /* Verde (reciente) */
+}
+.home .numbers article.comment header .time .blob.orange {
+    background-color: #ff7d02; /* Naranja (intermedio) */
+}
+.home .numbers article.comment header .time .blob.red {
+    background-color: #CF0006; /* Rojo (antiguo) */
+}
+.home .numbers article.comment header .type_of_call {
+    background-color: var(--tertiary-color); /* Color de fondo para tipo de llamada */
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+}
+.home .numbers .number_content a {
+    color: var(--secondary-color);
+    font-size: 18px; /* Tamaño del número */
+    font-weight: 700;
+    display: block;
+    margin-bottom: 5px;
+}
+.home .numbers .number_content p { /* Extracto del comentario */
+    margin: 0;
+    color: var(--text-color);
+    line-height: 1.4;
+}
+.home .numbers article.comment footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-top: 10px;
+    color: #777; /* Color para ubicación y owner */
+}
+.home .numbers article.comment footer .location {
+    /* Estilos para la ubicación */
+}
+.home .numbers article.comment footer .owner-name-index {
+    /* Estilos para el "dueño" del comentario si lo tienes */
+}
+
+@media(min-width:768px){
+    .home .numbers .column {
+        width: 49%;
+    }
+}
+
+/* Sección Prefijos y Zonas (.top-areacodes-spam) */
+.home .top-areacodes-spam {
+    padding: 30px 0;
+    text-align: center;
+}
+.home .top-areacodes-spam .container {
+    background: #eee; /* Fondo gris claro como listaspam */
+    padding: 20px;
+    border-radius: 5px;
+}
+.home .top-areacodes-spam h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+.home .areacode {
+    display: inline-flex; /* Para alinear prefijo y zona */
+    flex-direction: column; /* Apila prefijo sobre zona */
+    align-items: center;
+    margin: 10px;
+    min-width: 120px; /* Ancho mínimo para cada item */
+}
+.home .areacode a { /* Para el número del prefijo */
+    background: rgba(34,31,73,.1); /* --tertiary-color con alpha */
+    color: var(--tertiary-color);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px; /* Espacio entre prefijo y zona */
+    display: block;
+}
+.home .areacode a:hover {
+    background: var(--main-color);
+    color: #fff;
+    text-decoration: none;
+}
+.home .areacode span { /* Para el nombre de la zona */
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+
+
+/* Sección Últimas Búsquedas (.last_search) */
+.home .last_search {
+    text-align: center;
+    background: #eee; /* Similar a listaspam */
+    padding: 30px 15px;
+    margin-top: 20px;
+}
+.home .last_search h3 {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+.home .last_search .container { /* El contenedor de los enlaces */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.home .last_search a.last_number {
+    display: inline-block;
+    background: rgba(34,31,73,.1);
+    color: var(--tertiary-color);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 16px; /* Un poco más pequeño que el original */
+    font-weight: 700;
+}
+.home .last_search a.last_number:hover {
+    background: var(--tertiary-color);
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/* === ESTILOS PARA SINGLE-NUMERO_TELEFONICO.PHP, TAXONOMY-PREFIJO.PHP, TAXONOMY-PROVINCIA.PHP === */
+body.single-numero_telefonico,
+body.tax-prefijo,
+body.tax-provincia {
+    background-color: #fff; /* Fondo de página */
+}
+
+body.single-numero_telefonico .site-header,
+body.tax-prefijo .site-header,
+body.tax-provincia .site-header {
+    background-color: var(--main-color); /* Header verde */
+}
+
+body.single-numero_telefonico .site-header .main-title a,
+body.single-numero_telefonico .site-header .main-navigation a,
+body.tax-prefijo .site-header .main-title a,
+body.tax-prefijo .site-header .main-navigation a,
+body.tax-provincia .site-header .main-title a,
+body.tax-provincia .site-header .main-navigation a {
+    color: #fff; /* Texto blanco en header verde */
+}
+
+body.single-numero_telefonico .site-header .search-item a svg,
+body.tax-prefijo .site-header .search-item a svg,
+body.tax-provincia .site-header .search-item a svg {
+    fill: #fff; /* Icono de búsqueda blanco */
+}
+
+/* Estilos específicos para Single página si los hubiera fuera del header irían aquí */
+.single-numero_telefonico .entry-title.page-title.search-page-h1 { /* Título del número */
+    font-size: 27px;
+    width: 100%;
+    text-align: center;
+    color: var(--tertiary-color);
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+.single-numero_telefonico .entry-title strong {
+    color: var(--main-color); /* El número en sí, con color principal */
+}
+
+/* Mensaje de Advertencia/Info */
+.single-numero_telefonico .message_box { margin: 15px 0; }
+.single-numero_telefonico .alert_msg,
+.single-numero_telefonico .info_msg {
+    display: flex;
+    border: 2px solid;
+    padding: 15px;
+    align-items: center;
+}
+.single-numero_telefonico .alert_msg { border-color: #d51d51; } /* Rojo para advertencia */
+.single-numero_telefonico .info_msg { border-color: #007bff; } /* Azul para info */
+
+.single-numero_telefonico .alert_msg .alert-icon-big,
+.single-numero_telefonico .info_msg .alert-icon-big {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 30px; /* Más pequeño que el original */
+    padding-right: 10px;
+}
+.single-numero_telefonico .alert_txt {
+    width: calc(100% - 40px); /* Ajustar según icono */
+    font-size: 15px;
+}
+@media (min-width: 768px) {
+    .single-numero_telefonico .alert_txt { font-size: 16px; }
+}
+
+
+/* Caja de Datos del Número (.number_data_box) */
+.single-numero_telefonico .number_data_box {
+    margin-bottom: 20px;
+}
+.single-numero_telefonico .data_top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+}
+.single-numero_telefonico .data_top .right-data { /* Contenedor para tipo y valoración */
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Empuja a la derecha */
+}
+.single-numero_telefonico .type_of_call { /* Etiqueta tipo de teléfono */
+    background: var(--tertiary-color);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 3px 15px; /* Un poco más de padding */
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+
+.single-numero_telefonico .data_extra {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Distribuye items */
+    gap: 1%; /* Espacio entre items */
+    margin: 15px 0;
+}
+.single-numero_telefonico .data_extra > div { /* Cada item: Búsquedas, Denuncias, etc. */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: var(--alt-color);
+    border-radius: 5px;
+    width: 32.5%; /* Para tres columnas, ajusta si son más/menos */
+    margin: 0.5% 0; /* Pequeño margen vertical */
+    flex-direction: column; /* Label arriba, resultado abajo */
+    box-sizing: border-box;
+}
+.single-numero_telefonico .data_extra > div label {
+    white-space: nowrap;
+    width: 100%;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 11px; /* Más pequeño */
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+.single-numero_telefonico .data_extra > div .result {
+    font-weight: 700;
+    font-size: 18px; /* Tamaño del número/resultado */
+    color: var(--tertiary-color);
+}
+.single-numero_telefonico .data_extra > div .result a {
+    color: inherit;
+    text-decoration: none;
+}
+.single-numero_telefonico .data_extra > div .result a:hover {
+    text-decoration: underline;
+}
+
+.single-numero_telefonico .data_location {
+    display: flex;
+    flex-wrap: wrap;
+    font-weight: 700;
+    margin: 15px 0;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    background: var(--alt-color);
+}
+.single-numero_telefonico .data_location img { /* Bandera */
+    margin-right: 8px;
+}
+.single-numero_telefonico .data_location a {
+    color: var(--secondary-color);
+    font-weight: normal;
+}
+
+/* Botón "Denunciar este teléfono" (el que lleva al formulario) */
+.single-numero_telefonico .add_comment {
+    text-align: center;
+    margin: 25px 0;
+}
+.single-numero_telefonico .add_comment a.denunciar-este-numero-btn-listaspam {
+    background-color: var(--result-1); /* Rojo Peligroso */
+    color: #fff !important;
+    padding: 10px 20px;
+    border-radius: 25px; /* Redondeado como en listaspam */
+    display: inline-flex; /* Para alinear icono y texto */
+    align-items: center;
+    font-weight: 700;
+    font-size: 16px;
+}
+.single-numero_telefonico .add_comment a.denunciar-este-numero-btn-listaspam:hover {
+    background-color: darken(var(--result-1), 10%);
+    text-decoration: none;
+}
+.single-numero_telefonico .add_comment a.denunciar-este-numero-btn-listaspam img {
+    margin-right: 8px;
+}
+
+/* Sección "Denuncia las llamadas indeseadas" (.write_comment) */
+.single-numero_telefonico section.write_comment {
+    margin-bottom: 20px;
+}
+.single-numero_telefonico section.write_comment h2 {
+    font-size: 22px; /* Ajusta según necesidad */
+    margin-bottom: 10px;
+    text-align: center;
+}
+.single-numero_telefonico section.write_comment p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Formulario de Comentarios (Denuncias) */
+.single-numero_telefonico #respond { /* ID del wrapper del formulario */
+    background: var(--alt-color);
+    padding: 20px;
+    border-radius: 5px;
+}
+.single-numero_telefonico #reply-title { /* Título "Denunciar este teléfono" */
+    font-size: 22px !important; /* Forzar tamaño */
+    text-align: center;
+    margin-bottom: 20px !important;
+    font-weight: 700;
+    color: var(--tertiary-color) !important;
+}
+.single-numero_telefonico .comment-form .form_group { /* Wrapper para label y input/textarea */
+    margin-bottom: 15px;
+}
+.single-numero_telefonico .comment-form label {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 7px; /* Ajuste de margen */
+    color: var(--tertiary-color);
+}
+.single-numero_telefonico .comment-form .form_input, /* Clase para textarea e inputs */
+.single-numero_telefonico .comment-form input[type="text"],
+.single-numero_telefonico .comment-form input[type="email"],
+.single-numero_telefonico .comment-form input[type="url"],
+.single-numero_telefonico .comment-form textarea {
+    border: 1px solid #ccc; /* Borde más sutil */
+    padding: 10px 15px; /* Padding ajustado */
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    font-family: inherit;
+    box-sizing: border-box;
+    box-shadow: none; /* Sin sombra por defecto */
+}
+.single-numero_telefonico .comment-form .form_input:focus,
+.single-numero_telefonico .comment-form input[type="text"]:focus,
+.single-numero_telefonico .comment-form input[type="email"]:focus,
+.single-numero_telefonico .comment-form input[type="url"]:focus,
+.single-numero_telefonico .comment-form textarea:focus {
+    outline: 0;
+    border-color: var(--main-color); /* Borde color principal al enfocar */
+    box-shadow: 0 0 8px rgba(0,207,201,.3); /* Sombra suave */
+}
+.single-numero_telefonico .comment-form textarea.form_input {
+    resize: vertical; /* Permitir redimensionar verticalmente */
+    min-height: 100px;
+}
+.single-numero_telefonico .comment-form .comment-notes,
+.single-numero_telefonico .comment-form .logged-in-as { /* Notas y "Conectado como" */
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 15px;
+}
+.single-numero_telefonico .comment-form .buttons_form { /* Contenedor del botón de envío */
+    text-align: right; /* Botón a la derecha */
+}
+.single-numero_telefonico .comment-form .buttons_form .custom-btn { /* Botón de envío */
+    font-size: 18px; /* Más grande */
+    /* width: auto; se ajusta al contenido */
+}
+
+/* Estilos para "Más opciones" en el formulario de comentarios */
+.more_options_wrapper {
+    margin: 10px 0;
+    text-align: right;
+}
+.more_options_button {
+    cursor: pointer;
+    color: var(--secondary-color);
+    font-weight: bold;
+    font-size: 14px;
+}
+.more_options_button:hover {
+    color: var(--main-color);
+}
+.additional-fields {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--medium-gray-border);
+}
+
+/* Lista de Comentarios (Denuncias) */
+.single-numero_telefonico #comments .comments-title { /* Título "X denuncias" */
+    font-size: 20px;
+    color: var(--tertiary-color);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--medium-gray-border);
+}
+.single-numero_telefonico ul.comment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.single-numero_telefonico ul.comment-list li.comment {
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f6f6f6; /* Fondo para cada comentario */
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+.single-numero_telefonico ul.comment-list li.comment:nth-child(2n) {
+    background-color: #fdfdfd; /* Alternar color si se desea */
+}
+.single-numero_telefonico .comment-author .avatar {
+    float: left;
+    margin: 0 10px 5px 0;
+    border-radius: 50%;
+    width: 40px; /* Tamaño avatar */
+    height: 40px;
+}
+.single-numero_telefonico .comment-author .fn { /* Nombre del autor */
+    font-weight: 700;
+    color: var(--main-color); /* Color principal para el nombre */
+    font-size: 15px;
+}
+.single-numero_telefonico .comment-meta { /* Fecha y enlace de edición */
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 8px;
+    clear: both; /* Para asegurar que esté debajo del avatar si es necesario */
+}
+.single-numero_telefonico .comment-meta a { color: inherit; }
+.single-numero_telefonico .comment-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    color: var(--text-color);
+    font-size: 14px;
+}
+.single-numero_telefonico .reply a { /* Botón "Responder" */
+    font-size: 12px;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/* Sección "Otros números potencialmente peligrosos" (last_search en single) */
+.single-numero_telefonico section.last_search {
+    text-align: center;
+    background: #fff; /* Fondo blanco para esta sección en single */
+    padding: 20px 0;
+    margin-top: 30px;
+    border-top: 1px solid var(--medium-gray-border);
+}
+.single-numero_telefonico section.last_search h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: var(--tertiary-color);
+}
+.single-numero_telefonico section.last_search .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+.single-numero_telefonico section.last_search a.last_number {
+    display: inline-block;
+    background: rgba(34,31,73,.05); /* Más sutil que en la home */
+    color: var(--tertiary-color);
+    padding: 6px 12px; /* Un poco más pequeño */
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.single-numero_telefonico section.last_search a.last_number:hover {
+    background: var(--alt-color);
+    color: var(--tertiary-color);
+    text-decoration: none;
+}
+
+
+/* === ESTILOS PARA ARCHIVOS DE TAXONOMÍA (taxonomy-prefijo.php, taxonomy-provincia.php) === */
+/* Los estilos comunes del header ya están agrupados arriba con body.single-numero_telefonico */
+
+/* Breadcrumbs */
+.breadcrumps {
+    margin: 20px 0;
+    font-size: 13px;
+    color: #666;
+}
+.breadcrumps a {
+    color: var(--secondary-color);
+}
+.breadcrumps a:hover {
+    color: var(--main-color);
+}
+
+/* Sección .phone-location (Título y descripción de la taxonomía) */
+.tax-prefijo .phone-location,
+.tax-provincia .phone-location {
+    margin-bottom: 25px;
+}
+.tax-prefijo .phone-location h1,
+.tax-provincia .phone-location h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.tax-prefijo .taxonomy-description,
+.tax-provincia .taxonomy-description {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    text-align: center;
+}
+.tax-prefijo .phone-location p, /* Para el texto autogenerado si no hay descripción */
+.tax-provincia .phone-location p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    text-align: center;
+}
+.tax-provincia .other-cities { /* Lista de prefijos en página de provincia */
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+    text-align: center;
+}
+.tax-provincia .other-cities li {
+    display: inline-block;
+    margin: 0 5px 5px 0;
+}
+.tax-provincia .other-cities li a {
+    background: var(--alt-color);
+    padding: 5px 10px;
+    border-radius: 3px;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+.tax-provincia .other-cities li a:hover {
+    background: var(--main-color);
+    color: #fff;
+    text-decoration: none;
+}
+
+.areacode-location { /* Contenedor para mapa y nombre de ciudad */
+    text-align: center;
+    margin-top: 20px;
+}
+.areacode-location .city-location {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--tertiary-color);
+}
+.areacode-location .city-location a {
+    font-weight: normal;
+}
+
+/* Sección .total-spam-calls (Actividad spam detectada) */
+.total-spam-calls {
+    margin-bottom: 25px;
+}
+.total-spam-calls h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.spam-activity-box {
+    background: #eee;
+    padding: 15px 20px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Para móvil */
+}
+.spam-activity-box .report-activity {
+    flex-grow: 1;
+    text-align: left;
+    margin-right: 15px; /* Espacio antes del contador */
+}
+.spam-activity-box .report-activity .located { /* Nombre de la provincia/prefijo */
+    font-weight: bold;
+    color: var(--tertiary-color);
+}
+.spam-activity-box .total-reports-areacode { /* El número de denuncias */
+    background: var(--secondary-color);
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+}
+@media (max-width: 600px) {
+    .spam-activity-box {
+        flex-direction: column;
+        text-align: center;
+    }
+    .spam-activity-box .report-activity {
+        margin-right: 0;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+}
+
+/* Sección .top-spam-for-areacode (Números más denunciados) */
+.top-spam-for-areacode {
+    margin: 25px 0;
+}
+.top-spam-for-areacode h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.top-spam-for-areacode .top-areacode { /* Cada item de número top */
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    background-color: var(--alt-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+.top-spam-for-areacode .top-areacode a.last_number { /* El número en sí */
+    color: var(--tertiary-color);
+    font-weight: 700;
+    font-size: 18px;
+    margin-right: 10px;
+}
+.top-spam-for-areacode .top-areacode label { /* "X denuncias" */
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+
+/* Lista general de posts en archivo (.archive-posts) */
+.archive-posts {
+    margin-top: 20px;
+}
+.archive-posts h2 { /* Título "Todos los números..." */
+    font-size: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.archive-posts article {
+    padding: 10px 0;
+    border-bottom: 1px dotted var(--medium-gray-border);
+}
+.archive-posts article:last-child {
+    border-bottom: none;
+}
+.archive-posts article .entry-title {
+    margin: 0;
+}
+.archive-posts article .entry-title a {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+.archive-posts article .entry-title a:hover {
+    color: var(--main-color);
+}
+
+/* Paginación */
+.archive .navigation.pagination {
+    margin-top: 30px;
+    text-align: center;
+}
+.archive .navigation.pagination .nav-links .page-numbers {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 2px;
+    border: 1px solid var(--medium-gray-border);
+    border-radius: 3px;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+.archive .navigation.pagination .nav-links .page-numbers:hover,
+.archive .navigation.pagination .nav-links .page-numbers.current {
+    background-color: var(--main-color);
+    color: #fff;
+    border-color: var(--main-color);
+    text-decoration: none;
+}
+
+
+/* Responsive adicional de listaspam (simplificado) */
+@media(min-width:768px){
+    h1 { font-size: 30px; }
+    h2 { font-size: 26px; }
+    h3 { font-size: 22px; }
+
+    .home .head h1 { font-size: 32px; }
+    .home .search_container input[type="tel"] { height: 60px; font-size: 18px; }
+    .home .text_ini .container h2 { font-size: 26px; }
+    .home .text_ini .container .home-texto-contenido p { font-size: 17px; }
+
+    .single-numero_telefonico .entry-title.page-title.search-page-h1 { font-size: 30px; }
+    .single-numero_telefonico .data_extra > div label { font-size: 12px; }
+    .single-numero_telefonico .data_extra > div .result { font-size: 20px; }
+
+    .tax-prefijo .phone-location h1,
+    .tax-provincia .phone-location h1 { font-size: 28px; }
+}
+
+@media(min-width:1024px){
+    /* Ajustes para desktop si son necesarios, muchos ya están cubiertos */
+}
+
+/* Ajustes Responsivos Adicionales para Pantallas Pequeñas (<= 480px)
+-------------------------------------------------------------------- */
+@media (max-width: 480px) {
+    h1 { font-size: 24px; }
+    h2 { font-size: 20px; }
+    h3 { font-size: 18px; }
+
+    /* Header General */
+    .site-header .main-title { font-size: 1.5rem; }
+    .main-navigation .main-nav ul li a { padding-left: 10px; padding-right: 10px; font-size: 0.9rem;}
+    button.menu-toggle { padding: 10px; }
+
+
+    /* Home Page: Hero Section */
+    .home .head.main_gradient { padding: 20px 0; } /* Aumentar padding como listaspam */
+    .home .head .container {
+        min-height: auto; /* listaspam no define min-height aquí, se ajusta al contenido */
+        padding-top: 30px; /* Espacio arriba */
+        padding-bottom: 30px; /* Espacio abajo */
+    }
+    .home .head .shield_img {
+        width: 120px; /* Más similar a listaspam (171px original, pero responsive reduce) */
+        height: auto; /* Mantener proporción */
+        margin-bottom: 15px;
+    }
+    .home .head h1 {
+        font-size: 24px; /* Un poco más grande que el actual 22px, listaspam usa 27px base, responsive más pequeño */
+        margin-bottom: 20px;
+    }
+    .home .search_container {
+        width: 90%; /* listaspam usa 80% pero 90% es común en móvil */
+        max-width: 400px; /* Limitar un poco */
+    }
+    .home .search_container input[type="tel"] {
+        height: 50px; /* Altura de listaspam */
+        font-size: 16px; /* Tamaño de fuente de listaspam para móvil */
+        padding: 10px 50px 10px 20px; /* Padding de listaspam */
+    }
+    .home .search_container #search_submit {
+        right: 20px; /* Posición de listaspam */
+        width: 24px; /* Tamaño de listaspam */
+        height: 24px; /* Tamaño de listaspam */
+    }
+
+    /* Home Page: Texto Introductorio */
+    .home .text_ini { padding: 30px 0 15px; } /* Más padding vertical */
+    .home .text_ini .container h2 { font-size: 22px; margin-bottom: 20px; }
+    .home .text_ini .container .home-texto-contenido p { font-size: 15px; line-height: 1.5; }
+
+    /* Home Page: Blog/Noticias */
+    .home .blog { padding: 20px 0; }
+    .home .blog h2 { font-size: 22px; margin-bottom: 20px; }
+    .home .article-list { gap: 0; } /* Quitar gap, manejar margen en news_content */
+    .home .article-list .news_content {
+        width: 100%;
+        margin: 0 0 15px 0; /* Margen solo abajo */
+        padding: 20px; /* Padding de listaspam para news_content (original es 30px pero responsive puede ser menos) */
+        border-radius: 15px; /* listaspam usa 30px, pero 15px es más común en móvil */
+    }
+    .home .news_header .img_container { width: 80px; height: 80px; border-radius: 10px; }
+    .home .news_header .header_txt h3 { font-size: 17px; }
+    .home .news_desc { font-size: 14px; margin-bottom: 20px; } /* Más margen antes del footer */
+    .home .news_footer { height: auto; /* Permitir que el contenido defina la altura */ padding-bottom: 5px; }
+    .home .news_footer a { font-size: 15px; }
+    .home .blog > .container > .custom-btn { font-size: 17px; padding: 10px 20px; }
+
+    /* Home Page: Números (Denunciados y Top Spam) */
+    .home .numbers { padding: 15px 0; }
+    .home .numbers .container { gap: 0; }
+    .home .numbers .column { width: 100%; margin-bottom: 20px; }
+    .home .numbers .column h3 { font-size: 20px; margin-bottom: 15px; }
+    .home .numbers article.comment {
+        padding: 15px; /* Padding de listaspam (original 20px) */
+        font-size: 14px;
+    }
+    .home .numbers article.comment header { margin-bottom: 8px; font-size: 12px; }
+    .home .numbers article.comment header .type_of_call { padding: 2px 10px; font-size: 11px; }
+    .home .numbers .number_content a { font-size: 18px; } /* Más grande, como listaspam */
+    .home .numbers .number_content p { font-size: 14px; margin: 10px 0 0 0; } /* Añadir un poco de margen arriba */
+    .home .numbers article.comment footer { font-size: 12px; margin-top: 10px; }
+
+    /* Home Page: Prefijos y Zonas */
+    .home .top-areacodes-spam { padding: 25px 0; }
+    .home .top-areacodes-spam .container { padding: 20px 15px; }
+    .home .top-areacodes-spam h3 { font-size: 22px; margin-bottom: 20px; }
+    .home .areacode {
+        margin: 8px 5px; /* Ajustar margen */
+        min-width: calc(50% - 10px); /* Asegurar dos por fila en móvil, como listaspam */
+        flex-basis: auto; /* Resetear flex-basis para que min-width funcione */
+    }
+    .home .areacode a { padding: 8px 12px; font-size: 17px; }
+    .home .areacode span { font-size: 13px; margin-top: 3px; }
+
+    /* Home Page: Últimas Búsquedas */
+    .home .last_search { padding: 25px 10px; }
+    .home .last_search h3 { font-size: 22px; margin-bottom: 20px; }
+    .home .last_search .container { gap: 8px; } /* Espacio entre los números */
+    .home .last_search a.last_number {
+        padding: 8px 12px; /* Más padding */
+        font-size: 14px; /* Un poco más grande */
+        flex-basis: calc(33.33% - 6px); /* Tres por fila, ajustando gap */
+        box-sizing: border-box;
+    }
+
+
+    /* Single Número Telefónico */
+    .single-numero_telefonico .entry-title.page-title.search-page-h1 { font-size: 24px; margin-top:20px; margin-bottom: 15px; }
+    .single-numero_telefonico .alert_msg, .single-numero_telefonico .info_msg { padding: 15px; }
+    .single-numero_telefonico .alert_msg .alert-icon-big, .single-numero_telefonico .info_msg .alert-icon-big { font-size: 28px; padding-right: 10px; }
+    .single-numero_telefonico .alert_txt { font-size: 14px; width: calc(100% - 38px); }
+
+    .single-numero_telefonico .data_extra { flex-direction: row; gap: 2%; flex-wrap: wrap; } /* Volver a row para móvil, 3 columnas */
+    .single-numero_telefonico .data_extra > div { width: 32%; margin-bottom: 2%; } /* Tres columnas */
+    .single-numero_telefonico .data_extra > div label { font-size: 10px; } /* Mantener pequeño */
+    .single-numero_telefonico .data_extra > div .result { font-size: 17px; }
+    .single-numero_telefonico .data_location { font-size: 14px; padding: 10px; }
+    .single-numero_telefonico .add_comment { margin: 20px 0; }
+    .single-numero_telefonico .add_comment a.denunciar-este-numero-btn-listaspam { font-size: 15px; padding: 10px 18px; }
+    .single-numero_telefonico section.write_comment h2 { font-size: 22px; }
+    .single-numero_telefonico section.write_comment p { font-size: 15px; }
+    .single-numero_telefonico #respond { padding: 20px 15px; }
+    .single-numero_telefonico #reply-title { font-size: 20px !important; margin-bottom: 20px !important; }
+    .single-numero_telefonico .comment-form .form_input,
+    .single-numero_telefonico .comment-form input[type="text"],
+    .single-numero_telefonico .comment-form textarea { font-size: 15px; padding: 10px 12px; }
+    .single-numero_telefonico .comment-form .buttons_form .custom-btn { font-size: 17px; width: 100%; } /* Botón ocupa todo el ancho */
+    .single-numero_telefonico #comments .comments-title { font-size: 20px; }
+    .single-numero_telefonico ul.comment-list li.comment { padding: 15px; }
+    .single-numero_telefonico .comment-author .avatar { width: 35px; height: 35px; }
+    .single-numero_telefonico .comment-author .fn { font-size: 15px; }
+    .single-numero_telefonico .comment-content p { font-size: 14px; }
+    .single-numero_telefonico section.last_search { padding: 20px 0; }
+    .single-numero_telefonico section.last_search h3 { font-size: 20px; }
+    .single-numero_telefonico section.last_search .container { gap: 8px; }
+    .single-numero_telefonico section.last_search a.last_number { font-size: 13px; padding: 6px 10px; flex-basis: calc(33.33% - 6px); }
+
+    /* Páginas de Taxonomía */
+    .tax-prefijo .phone-location h1, .tax-provincia .phone-location h1 { font-size: 24px; }
+    .tax-prefijo .taxonomy-description, .tax-provincia .taxonomy-description,
+    .tax-prefijo .phone-location p, .tax-provincia .phone-location p { font-size: 15px; }
+    .tax-provincia .other-cities li a { font-size: 1em; padding: 5px 10px;}
+    .areacode-location .city-location { font-size: 17px; }
+    .total-spam-calls h2 { font-size: 22px; }
+    .spam-activity-box { font-size: 15px; padding: 15px; flex-direction: column; } /* Apilar en móvil */
+    .spam-activity-box .report-activity { margin-bottom: 10px; text-align: center; margin-right: 0; }
+    .spam-activity-box .total-reports-areacode { font-size: 17px; padding: 8px 12px; }
+    .top-spam-for-areacode h2 { font-size: 20px; }
+    .top-spam-for-areacode .top-areacode { padding: 8px 12px; }
+    .top-spam-for-areacode .top-areacode a.last_number { font-size: 17px; }
+    .top-spam-for-areacode .top-areacode label { font-size: 13px; }
+    .archive-posts h2 { font-size: 20px; }
+    .archive-posts article .entry-title a { font-size: 17px; }
+    .archive .navigation.pagination .nav-links .page-numbers { padding: 8px 12px; font-size: 1em;}
+
+    /* Ajustes generales para .container dentro de .site-content en móvil */
+    .site-content .container {
+        padding-left: 15px; /* Padding estándar de listaspam */
+        padding-right: 15px; /* Padding estándar de listaspam */
+    }
+     /* Forzar ancho completo para main_content y right_side en pantallas pequeñas si la estructura de flexbox no es suficiente */
+    .show_right_side > .container > .main_content,
+    .show_right_side > .container > .right_side {
+        width: 100% !important;
+        flex-basis: 100% !important;
+        /* Ya no anulamos el padding aquí, por lo que .main_content y .right_side
+           respetarán el padding de su .container padre (.site-content .container) */
+    }
+    .right_side { margin-top: 20px; } /* Asegurar espacio si se apilan */
+}
